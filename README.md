@@ -5,7 +5,7 @@ Android软键盘快捷键（仿UC手机浏览器）
 <br/>
 <br/>
 
-<img height="498px" width="510px" src="https://gitlab.com/linzhenxiang/KeyBoardLayout/tree/master" />
+<img height="800px" width="480px" src="https://gitlab.com/linzhenxiang/KeyBoardLayout/tree/master" />
 
 1.功能分析
 --
