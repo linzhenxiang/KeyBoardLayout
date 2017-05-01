@@ -193,7 +193,8 @@ Android软键盘快捷键（仿UC手机浏览器）
         
 
 
-
+<br/>
+<br/>
 2.快捷输入
 --
  获取光标的开始**Selection.getSelectionStart()**位置和结束位置**Selection.getSelectionEnd()**。利用String的**replace(start,stop,str)**方法将选中部分替换成快捷字符。
