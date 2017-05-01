@@ -297,3 +297,8 @@ SeeKBar 继承于AbsSeekBar 而AbsSeekBar 对View的onTouchEvent方法进行了�
 > **屏幕休眠再唤醒时发现滑动动画为执行结束**
 
 添加屏幕休眠和唤醒监听，在屏幕休眠时启动滑块的缩放动画。
+
+
+
+Autor:Lzx
+Eemail:773090577@qq.com
