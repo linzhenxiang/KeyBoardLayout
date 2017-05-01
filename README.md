@@ -5,10 +5,7 @@ Android软键盘快捷键（仿UC手机浏览器）
 <br/>
 <br/>
 
-<img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/replace_45-310.gif" width="240px" height="426px"/>
-<img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/scroll_45-200.gif" width="240px" height="426px"/>
-
-<img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/seekbar_anim.gif" width="240px" height="426px"/>
+<img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/replace_45-310.gif" width="240px" height="426px"/><img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/scroll_45-200.gif" width="240px" height="426px"/><img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/seekbar_anim.gif" width="240px" height="426px"/>
 
 <img src="https://github.com/linzhenxiang/KeyBoardLayout/blob/master/video/select_45-167.gif" width="240px" height="426px"/>
 
