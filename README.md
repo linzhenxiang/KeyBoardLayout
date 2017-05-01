@@ -300,5 +300,6 @@ SeeKBar 继承于AbsSeekBar 而AbsSeekBar 对View的onTouchEvent方法进行了�
 
 
 
-Autor:Lzx
+Author:Lzx
+
 Eemail:773090577@qq.com
