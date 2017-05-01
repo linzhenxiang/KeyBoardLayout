@@ -126,7 +126,7 @@ Android软键盘快捷键（仿UC手机浏览器）
         }
 
 
-> **SeekBar 滑动事件**
+> **4.SeekBar 滑动事件**
 
 在SeekBar的滑动回调中处理滑动选中和文本滚动选中。首先获取滑块的初始位置，SeekBar滑动时获取滑动的差值并更新位置，根据差值移动光标选中文本，当滑块到达顶端而文本过长，此时需要通过Handler 定时发送移动光标选中文本的消息，直到文本全部选中。当反向移动或停止触摸SeekBar时需要立刻取消Handler消息。
 
@@ -169,7 +169,8 @@ Android软键盘快捷键（仿UC手机浏览器）
     }
 
 
-    //Handler 消息
+> **4.Handler 消息**
+
     @Override
     public void handleMessage(Message msg) {
             super.handleMessage(msg);
