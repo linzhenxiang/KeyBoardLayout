@@ -169,7 +169,7 @@ Android软键盘快捷键（仿UC手机浏览器）
     }
 
 
-> **4.Handler 消息**
+> **5.Handler 消息**
 
     @Override
     public void handleMessage(Message msg) {
@@ -177,19 +177,15 @@ Android软键盘快捷键（仿UC手机浏览器）
             switch (msg.what) {
  				//向左滑动
                 case 1:
-                    //移动选中文本
-					Selection.setSelection(mEditText.getText(), mCursorPosition, Math.max(Selection.getSelectionEnd(mEditText.getText()) - 1, 0));
-                    //延时发送继续向左移动选中文本的消息
-					if (mEditText.getSelectionEnd() != 0)
-                        sendEmptyMessageDelayed(CURSOR_LEFT, 150);
+                    //1.移动选中文本
+                    //2.延时发送继续向左移动选中文本的消息
+				
                     break;
 				//向右滑动
                 case 2:
-					//移动选中文本
-                    Selection.setSelection(mEditText.getText(), mCursorPosition, Math.max(Math.min(Selection.getSelectionEnd(mEditText.getText()) + 1, mEditText.length()), 0));
-                    //发送继续向右移动选中文本的消息
-					if (mEditText.getSelectionEnd() != mEditText.length())
-                        sendEmptyMessageDelayed(CURSOR_RIGHT, 150);
+					//1.移动选中文本
+                    //2.发送继续向右移动选中文本的消息
+				
                     break;
             }
         }
