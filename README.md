@@ -299,7 +299,6 @@ SeeKBar 继承于AbsSeekBar 而AbsSeekBar 对View的onTouchEvent方法进行了�
 添加屏幕休眠和唤醒监听，在屏幕休眠时启动滑块的缩放动画。
 
 
-
+<br/>
 Author:Lzx
-
 Eemail:773090577@qq.com
