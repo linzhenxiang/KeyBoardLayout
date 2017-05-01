@@ -5,6 +5,8 @@ Android软键盘快捷键（仿UC手机浏览器）
 <br/>
 <br/>
 
+<iframe height="498px" width="510px" src="https://gitlab.com/linzhenxiang/KeyBoardLayout/blob/master/video/2017-05-01_13_45_46.mp4" />
+
 1.功能分析
 --
 > * 快捷输入 （点击快捷键，内容将会输入到输入框）
