@@ -189,6 +189,16 @@ Android软键盘快捷键（仿UC手机浏览器）
                     break;
             }
         }
+        
+        
+
+
+2.快捷输入
+--
+ 	获取光标的开始**Selection.getSelectionStart()**位置和结束位置**Selection.getSelectionEnd()**。利用String的**replace(start,stop,str)**方法将选中部分替换成快捷字符。
+
+	注意：当替换快捷字符后光标的位置总是默认在字符左侧。需求是光标要在替换字符的最右侧。那么就需要移动光标到右侧。
+		 使用Selection.setSelection(index)，index为光标的位置，只需要将当前光标的位置加上字符长度就可以了。        
 
 
 
