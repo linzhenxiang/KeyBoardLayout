@@ -126,7 +126,72 @@ Android软键盘快捷键（仿UC手机浏览器）
         }
 
 
+> **SeekBar 滑动事件**
 
+在SeekBar的滑动回调中处理滑动选中和文本滚动选中。首先获取滑块的初始位置，SeekBar滑动时获取滑动的差值并更新位置，根据差值移动光标选中文本，当滑块到达顶端而文本过长，此时需要通过Handler 定时发送移动光标选中文本的消息，直到文本全部选中。当反向移动或停止触摸SeekBar时需要立刻取消Handler消息。
+
+	//SeekBar 滑动
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+         1. 判断SeekBar是长按状态
+		
+		 2. 获取滑动差值（int dx = progress -mLastPosition）
+		
+		 3. 判断差值是否大于0以区分是向左还是向右滑动
+		
+		 4. 差值<=0 向左滑动，此时取消向右自动滚动选中文本的Handler消息。
+			使用Selection的setSelection(text,start,stop)方法选中文本，text为文本内容，
+			start是光标开始的位置，stop是光标结束的位置
+			当滑块到达左端而光标未到达最左端时，使用Handler延迟150ms发送向左自动滚动选中文本的消息
+            
+ 			差值>0 向右滑动，此时取消向左自动滚动选中文本的Handler消息，
+			使用Selection的setSelction(text,start.stop)选中文本
+			当滑块到右端而光标未到达最右端时，使用Handler延迟150ms发送向右自动滚动选中文本的消息
+		
+		5.更新SeekBar的位置
+    }
+
+	//SeekBar触摸事件触发
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+        //记录当前SeekBar位置 mLastPosition
+
+    }
+
+	//SeekBar 触摸事件结束
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+       
+		 1. 取消所有Handler消息
+		 2. 若SeekBar是点击事件而非长按事件，释放时需要重置SeekBar 初始位置
+      
+    }
+
+
+    //Handler 消息
+    @Override
+    public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+ 				//向左滑动
+                case 1:
+                    //移动选中文本
+					Selection.setSelection(mEditText.getText(), mCursorPosition, Math.max(Selection.getSelectionEnd(mEditText.getText()) - 1, 0));
+                    //延时发送继续向左移动选中文本的消息
+					if (mEditText.getSelectionEnd() != 0)
+                        sendEmptyMessageDelayed(CURSOR_LEFT, 150);
+                    break;
+				//向右滑动
+                case 2:
+					//移动选中文本
+                    Selection.setSelection(mEditText.getText(), mCursorPosition, Math.max(Math.min(Selection.getSelectionEnd(mEditText.getText()) + 1, mEditText.length()), 0));
+                    //发送继续向右移动选中文本的消息
+					if (mEditText.getSelectionEnd() != mEditText.length())
+                        sendEmptyMessageDelayed(CURSOR_RIGHT, 150);
+                    break;
+            }
+        }
 
 
 
