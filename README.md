@@ -203,4 +203,85 @@ Android软键盘快捷键（仿UC手机浏览器）
  使用Selection.setSelection(index)，index为光标的位置，只需要将当前光标的位置加上字符长度就可以了。        
 
 
+<br/>
+<br/>
+###3.弹出和关闭选中快捷菜单
+--
+当释放**SeekBar**时,需要弹出选中快捷菜单，当然若没有内容被选中菜单是不会弹出的，而在此触摸滑块时需要关闭菜单避免影响滑块的拉伸动画。
 
+**注意：**菜单的弹出玉打开需要通过Java的反射机制打开。这是因为选中快捷菜单是由**TextView**中的**mEditor**对象控制的，而TextView并没有提供外部获取**mEditor**对象的public方法。这就需要我们获取**mEditor**对象，进而获取**Editor**类的私有类对象及该私有类的方法。通过反射机制执行该方法来达到我们想要的效果。
+ 
+
+<br/>
+<br/>
+
+###4.剪切板
+--
+待续-------------------
+ 
+
+
+
+<br/>
+<br/>
+3.开发中遇到的一些问题
+==
+---
+<br/>
+>  **SeekBar 样式更改**
+
+
+- 圆形的滑块周围总是有白色的边框，开上去是在滑块外套了个矩形。
+
+通过设置SeekBar的android:splitTrack="false"解决了问题。这个属性的作用是决定是否分割进度条，我们通常见到的进度条左右颜色不一样就是设定这个属性来分割的，该属性的默认值为TRUE。
+我们看一下 这个属性的描素：
+
+     /**
+     * Specifies whether the track should be split by the thumb. When true,
+     * the thumb's optical bounds will be clipped out of the track drawable,
+     * then the thumb will be drawn into the resulting gap.
+     *
+     * @param splitTrack Whether the track should be split by the thumb
+     */
+      public void setSplitTrack(boolean splitTrack) {
+        mSplitTrack = splitTrack;
+        invalidate();
+    }
+
+
+大意：用于指定进度条是否需要分割，若选择分割，那么拇指按钮的可视边界将取决于分割后的进度图片（由于分割是矩形分割，所以会有白色的背景），否则拇指图标将被绘制在进度的间隙内。
+
+<br/>
+
+> **SeekBar 点击和长按事件无法触发**
+
+SeeKBar 继承于AbsSeekBar 而AbsSeekBar 对View的onTouchEvent方法进行了重写，去除了点击和长按事件的处理，因此发触发事件回调。
+然而SeekBar的onTouchListener事件是可以正常回调的，因为该事件是在dispatchTouchEvent事件分发方法中进行判断的，方法的调用要在onTouchEvent之前。那么通过GestureDetector 的onTouchEvent方法接收onTouchListener的回到事件就可以实现点击和长按事件的监听。
+
+<br/>
+<br/>
+
+> **SeekBar 的动画会卡住导致控件无法完全拉伸或收缩**
+
+1.要标记按下，长按，释放时的状态和防抖动，避免多次触发动画
+
+2.避免界面进行重新layout，在动画开始期间，不能有新的控件显示或隐藏（eg:选中菜单的显示与关闭必须与动画错开)
+
+<br/>
+<br/>
+
+> **SeekBar滑动时光标消失，无法看到选中状态**
+
+输入框的焦点还在，光标隐藏了，单纯的再次显示光标并不能解决问题，后来通过反射的方法初始化了光标和编辑状态就可以了。
+
+<br/>
+<br/>
+
+> **选中文本时，过多的文本不自动滚动**
+
+文本选中是通过Selection.setSelection（str,start,stop)方法实现的，实现过程中发现光标移动到顶端时就不在移动了。后来发现文本的滚动是选中文本的结束位置决定的，所以当start到达顶端时就不移动了，那么固定start的位置，移动stop的位置就解决的这个问题。在移动过程中要注意方向和移动的距离避免数组越界。
+
+<br/>
+> **屏幕休眠再唤醒时发现滑动动画为执行结束**
+
+添加屏幕休眠和唤醒监听，在屏幕休眠时启动滑块的缩放动画。
